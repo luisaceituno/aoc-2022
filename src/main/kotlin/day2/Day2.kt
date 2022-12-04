@@ -1,28 +1,31 @@
+package day2
 import java.io.File
 
-var input = File("input.txt").readLines()
-round1(input)
-round2(input)
+fun main() {
+    val input = File("src/main/kotlin/day2/input.txt").readLines()
+    round1(input)
+    round2(input)
+}
 
 fun round1(lines: List<String>) {
     var score = 0
     for (line in lines) {
-        var opponents = decode(line[0])
-        var mine = decode(line[2])
+        val opponents = decode(line[0])
+        val mine = decode(line[2])
         score += getPoints(mine, opponents) + getHandScore(mine)
     }
-    println("Round 1: " + score)
+    println("Round 1: $score")
 }
 
 fun round2(lines: List<String>) {
     var score = 0
     for (line in lines) {
-        var opponents = decode(line[0])
-        var neededResult = line[2];
-        var mine = complement(opponents, neededResult)
+        val opponents = decode(line[0])
+        val neededResult = line[2]
+        val mine = complement(opponents, neededResult)
         score += getPoints(mine, opponents) + getHandScore(mine)
     }
-    println("Round 2: " + score)
+    println("Round 2: $score")
 }
 
 enum class Hand {
@@ -56,13 +59,13 @@ fun complement(opponentsHand: Hand, neededResult: Char): Hand {
 }
 
 fun getPoints(myHand: Hand, opponentsHand: Hand): Int {
-    if (myHand.equals(opponentsHand)) {
+    if (myHand == opponentsHand) {
         return 3
     }
     return when(myHand) {
-        Hand.ROCK -> if(opponentsHand.equals(Hand.SCISSORS)) { 6 } else { 0 }
-        Hand.PAPER -> if(opponentsHand.equals(Hand.ROCK)) { 6 } else { 0 }
-        Hand.SCISSORS -> if(opponentsHand.equals(Hand.PAPER)) { 6 } else { 0 }
+        Hand.ROCK -> if(opponentsHand == Hand.SCISSORS) { 6 } else { 0 }
+        Hand.PAPER -> if(opponentsHand == Hand.ROCK) { 6 } else { 0 }
+        Hand.SCISSORS -> if(opponentsHand == Hand.PAPER) { 6 } else { 0 }
     }
 }
 
