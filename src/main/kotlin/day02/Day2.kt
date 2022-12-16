@@ -1,4 +1,5 @@
-package day2
+package day02
+
 import java.io.File
 
 fun main() {
@@ -33,7 +34,7 @@ enum class Hand {
 }
 
 fun decode(hand: Char): Hand {
-    return when(hand) {
+    return when (hand) {
         'X', 'A' -> Hand.ROCK
         'Y', 'B' -> Hand.PAPER
         'Z', 'C' -> Hand.SCISSORS
@@ -42,18 +43,20 @@ fun decode(hand: Char): Hand {
 }
 
 fun complement(opponentsHand: Hand, neededResult: Char): Hand {
-    return when(neededResult) {
-        'X' -> when(opponentsHand) {
+    return when (neededResult) {
+        'X' -> when (opponentsHand) {
             Hand.ROCK -> Hand.SCISSORS
             Hand.PAPER -> Hand.ROCK
             Hand.SCISSORS -> Hand.PAPER
         }
+
         'Y' -> opponentsHand
-        'Z' -> when(opponentsHand) {
+        'Z' -> when (opponentsHand) {
             Hand.ROCK -> Hand.PAPER
             Hand.PAPER -> Hand.SCISSORS
             Hand.SCISSORS -> Hand.ROCK
         }
+
         else -> throw IllegalArgumentException()
     }
 }
@@ -62,15 +65,29 @@ fun getPoints(myHand: Hand, opponentsHand: Hand): Int {
     if (myHand == opponentsHand) {
         return 3
     }
-    return when(myHand) {
-        Hand.ROCK -> if(opponentsHand == Hand.SCISSORS) { 6 } else { 0 }
-        Hand.PAPER -> if(opponentsHand == Hand.ROCK) { 6 } else { 0 }
-        Hand.SCISSORS -> if(opponentsHand == Hand.PAPER) { 6 } else { 0 }
+    return when (myHand) {
+        Hand.ROCK -> if (opponentsHand == Hand.SCISSORS) {
+            6
+        } else {
+            0
+        }
+
+        Hand.PAPER -> if (opponentsHand == Hand.ROCK) {
+            6
+        } else {
+            0
+        }
+
+        Hand.SCISSORS -> if (opponentsHand == Hand.PAPER) {
+            6
+        } else {
+            0
+        }
     }
 }
 
 fun getHandScore(hand: Hand): Int {
-    return when(hand) {
+    return when (hand) {
         Hand.ROCK -> 1
         Hand.PAPER -> 2
         Hand.SCISSORS -> 3
